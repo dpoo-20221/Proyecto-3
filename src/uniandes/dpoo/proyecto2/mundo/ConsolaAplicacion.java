@@ -36,14 +36,16 @@ public class ConsolaAplicacion
     {
     	participantes = new ArrayList<>();
     	paqueteTrabajoRaiz = new PaqueteTrabajo("WBS", "Descripcion inicial", "");
-    	paqueteTrabajoRaiz.agregarNodo("WBS", "PaqueteTrabajo", "Prueba1", "Descripcion1", "");
-    	paqueteTrabajoRaiz.agregarNodo("WBS", "PaqueteTrabajo", "Prueba2", "Descripcion2", "");
-    	paqueteTrabajoRaiz.agregarNodo("WBS", "PaqueteTrabajo", "Prueba3", "Descripcion3", "");
+    	paqueteTrabajoRaiz.agregarNodo("WBS", "PaqueteTrabajo", "Paquete prueba 1", "Descripcion1", "");
+    	paqueteTrabajoRaiz.agregarNodo("WBS", "PaqueteTrabajo", "Paquete prueba 2", "Descripcion2", "");
+    	paqueteTrabajoRaiz.agregarNodo("WBS", "PaqueteTrabajo", "Paquete prueba 3", "Descripcion3", "");
     	
-    	paqueteTrabajoRaiz.agregarNodo("Prueba1", "Tarea", "Prueba4", "Descripcion4", "Tipo4");
+    	paqueteTrabajoRaiz.agregarNodo("Paquete prueba 1", "Tarea", "Tarea de prueba 1", "Descripcion4", "Tipo4");
+    	paqueteTrabajoRaiz.agregarNodo("Paquete prueba 2", "Tarea", "Tarea de prueba 2", "Descripcion5", "Tipo5");
     	
-    	Tarea tar = (Tarea) paqueteTrabajoRaiz.buscarNodo("Prueba4");
-    	tar.agregarActividad("Tarea de prueba 1", "Descripcion de prueba", "Tipo de prueba", LocalDateTime.now());
+    	agregarActividad("Tarea de prueba 1", "Actividad de prueba 1", "Descripcion de prueba1", "Tipo de prueba1", LocalDateTime.now());
+    	agregarActividad("Tarea de prueba 1", "Actividad de prueba 2", "Descripcion de prueba2", "Tipo de prueba2", LocalDateTime.now());
+    	agregarActividad("Tarea de prueba 2", "Actividad de prueba 3", "Descripcion de prueba3", "Tipo de prueba3", LocalDateTime.now());
     }
 
     // -----------------------------------------------------------------

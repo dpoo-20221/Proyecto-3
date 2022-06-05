@@ -54,12 +54,12 @@ public class FrameAgregarActividadFinal extends javax.swing.JFrame{
         interfaz = pInterfaz;
         nombrePadre = pNombrePadre;
         
-        lblAgregarProyecto.setText("AGREGAR TAREA");
-        lblNombre.setText("Nombre de la tarea");
+        lblAgregarProyecto.setText("AGREGAR ACTIVIDAD");
+        lblNombre.setText("Nombre de la Actividad");
         
         lblFechaInicio.setVisible(false);
         dateFechaInicial.setVisible(false);
-        lblTiposDisponibles.setText("Tipo de tarea");
+        lblTiposDisponibles.setText("Tipo de actividad");
         lblInformacionTiposDisponibles.setVisible(false);
     }
 
@@ -235,10 +235,9 @@ public class FrameAgregarActividadFinal extends javax.swing.JFrame{
         String titulo = txtNombre.getText();
         Descripcion = txtDescripcion.getText();
         Tipo = txtTiposDisponibles.getText();
-        
 
-        consola.agregarActividad(nombrePadre, titulo,Descripcion, Tipo, LocalDateTime.now());
-        //interfaz.update();
+        consola.agregarActividad(nombrePadre, titulo, Descripcion, Tipo, LocalDateTime.now());
+        interfaz.updateActividades();
 		JOptionPane.showMessageDialog(null, "Actividad creada el d�a "+ LocalDateTime.now().getDayOfMonth()+" del mes de "+LocalDateTime.now().getMonth(), "Crear proyecto", JOptionPane.INFORMATION_MESSAGE);
 		dispose();
     }

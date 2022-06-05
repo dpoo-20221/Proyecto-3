@@ -86,6 +86,7 @@ public class InterfazAdministrador extends javax.swing.JFrame implements TreeSel
 	private DefaultMutableTreeNode raizJtree;
 	
 	private Nodo nodoSeleccionado;
+	private Actividad actividadSeleccionada;
     
 
     public InterfazAdministrador(ConsolaAplicacion pConsola) {
@@ -617,7 +618,8 @@ public class InterfazAdministrador extends javax.swing.JFrame implements TreeSel
             txtFechaFinalActividad.setVisible(true);
             lblFechaFinalActividad.setVisible(true);
             
-            actividad = nodoSeleccionado.buscarActividad(lstActividades.getSelectedValue().toString());
+            actividad = nodoSeleccionado.buscarActividad( (String) lstActividades.getModel().getElementAt(lstActividades.getSelectedIndex()) );
+            actividadSeleccionada = actividad;
             txtDescripcionActividad.setText(actividad.getDescripcion());
             String listaFechaI[] = actividad.getfechaInicio().toString().split("T");
             String listaTiempoI[] = listaFechaI[1].split(":");
@@ -667,8 +669,15 @@ public class InterfazAdministrador extends javax.swing.JFrame implements TreeSel
     }
 
     private void iconAgregarActividadMouseClicked(java.awt.event.MouseEvent evt) {
-        FrameAgregarActividadFinal frameAgregarActividad = new FrameAgregarActividadFinal(consola, this, nodoSeleccionado.darNombre());
-        frameAgregarActividad.setVisible(true);
+        if(!(nodoSeleccionado instanceof PaqueteTrabajo))
+        {
+        	FrameAgregarActividadFinal frameAgregarActividad = new FrameAgregarActividadFinal(consola, this, nodoSeleccionado.darNombre());
+            frameAgregarActividad.setVisible(true);
+        }
+        else
+        {
+        	JOptionPane.showMessageDialog(null,"No se puede agregar una actividad a un paquete de trabajo");
+        }
     }
     
     private void iconReporteProyectoMouseClicked(java.awt.event.MouseEvent evt) {
@@ -877,6 +886,15 @@ public class InterfazAdministrador extends javax.swing.JFrame implements TreeSel
         txtFechaInicialProyecto.setText(texto1);
         
         btnCompletarActividad.setVisible(false);
+        
+        if(nodoSeleccionado instanceof PaqueteTrabajo)
+        {
+        	txtDescripcionActividad.setText("");
+        	txtFechaFinalActividad.setText("");
+        	txtFechaInicialActividad.setText("");
+        	txtTipo.setText("");
+        	lstActividades.setModel(new DefaultListModel<>());
+        }
         
         updateActividades();
 	}

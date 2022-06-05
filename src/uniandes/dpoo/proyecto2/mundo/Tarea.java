@@ -82,7 +82,7 @@ public class Tarea extends Nodo
     	Actividad resp = null;
         for(Actividad a:actividades)
         {
-        	if(nombre.equals(a.getTitulo()))
+        	if(titulo.equals(a.getTitulo()))
         	{
         		resp = a;        		
         	}
@@ -98,7 +98,7 @@ public class Tarea extends Nodo
     @Override
     public Nodo buscarNodo( String nombre )
     {
-        return nombre.equals( nombre ) ? this : null;
+        return this.nombre.equals( nombre ) ? this : null;
     }
 
 	@Override
