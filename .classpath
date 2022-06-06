@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="lib/AbsoluteLayout-RELEASE130.jar"/>
 	<classpathentry kind="lib" path="lib/FiveCodMoverJDialogJFrame.jar"/>
 	<classpathentry kind="lib" path="lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/xchart-3.8.1/xchart-3.8.1/xchart-3.8.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

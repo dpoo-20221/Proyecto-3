@@ -7,6 +7,10 @@ import java.awt.event.KeyEvent;
 import uniandes.dpoo.proyecto2.mundo.ConsolaAplicacion;
 import javax.swing.JOptionPane;
 
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XYChart;
+
 /**
  *
  * @author Usuario

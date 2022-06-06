@@ -6,8 +6,10 @@ import uniandes.dpoo.proyecto2.mundo.PaqueteTrabajo;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Random;
 
 import uniandes.dpoo.proyecto2.mundo.Actividad;
 import FiveCodMover.FiveCodMoverJFrame;
@@ -25,6 +27,17 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+
+import org.knowm.xchart.CategoryChart;
+import org.knowm.xchart.CategoryChartBuilder;
+import org.knowm.xchart.PieChart;
+import org.knowm.xchart.PieChartBuilder;
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XYChart;
+import org.knowm.xchart.internal.chartpart.Chart;
+import org.knowm.xchart.style.Styler.ChartTheme;
+
 
 /**
  *
@@ -127,6 +140,9 @@ public class InterfazAdministrador extends javax.swing.JFrame implements TreeSel
         lblCrearProyecto.setText("Agregar Trabajo");
         lblAgregarParticipante.setText("Agregar Tarea");
         lblAgregarActividad.setText("Agregar Actividad");
+        
+        lblReporteParticipante.setText("Reporte Tarea");
+        lblReporteActividad.setText("Reporte Equipo");
     }
 
     private void initComponents() {
@@ -680,32 +696,108 @@ public class InterfazAdministrador extends javax.swing.JFrame implements TreeSel
         }
     }
     
-    private void iconReporteProyectoMouseClicked(java.awt.event.MouseEvent evt) {
-    	//String mensaje = "El nombre del proyecto: "+ proyecto.getNombre()+"\n"+"El numero de participantes es: "+proyecto.getParticipantes().size()+"\n"+"El numero de actividades es: "+proyecto.getActividades().size()+"\n"+"La fecha de inicio es: "+proyecto.getFechaInicio()+"\n"+"La fecha final es: "+proyecto.getFechaFinal();
-    	//JOptionPane.showMessageDialog(null,mensaje);
-    }
-
-    private void iconReporteParticipanteMouseClicked(java.awt.event.MouseEvent evt) {        
-        
-    //JOptionPane.showMessageDialog(null, "<html><h1 style=\"font-family: 'Times New Roman', Times, serif;\"><center>"+consola.getUsuario().getNombre()+"</center></h1><p style=\"font-family: 'Times New Roman', Times, serif;\">"+consola.getUsuario().generarReporte()+"</p></html>", "Reporte de participante", JOptionPane.INFORMATION_MESSAGE);
-    }
-    private void iconReporteActividadMouseClicked(java.awt.event.MouseEvent evt) {
-    	
-    	String mensaje = "";
-
-    	
-    	if (actividad.isCompletada())
+    private void iconReporteProyectoMouseClicked(java.awt.event.MouseEvent evt) 
+    {
+    	if(true)
     	{
-    		//mensaje = "El nombre de la actividad es: "+ actividad.getTitulo()+"\n"+"El participnate es: "+ actividad.getParticipante().getNombre() +"\nDescripcion de la actividad: "+actividad.getDescripcion()+"\n"+ "La actividad fue terminada " + "\nLa fecha de inicio es: "+ actividad.getfechaInicio()+"\n"+"La fecha en la que se finalizo es: "+actividad.getFechaRealizacion();
+    		graficarProyecto();
     	}
-    	
+    }
+
+    private void iconReporteParticipanteMouseClicked(java.awt.event.MouseEvent evt) 
+    {        
+    	if(!(nodoSeleccionado instanceof PaqueteTrabajo))
+    	{
+    		graficarTarea();
+    	}
     	else
     	{
-    		//mensaje = "El nombre de la actividad es: "+ actividad.getTitulo()+"\n"+"El participnate es: "+ actividad.getParticipante() +"\nDescripcion de la actividad: "+actividad.getDescripcion()+"\n"+ "La actividad no ha sido terminada " + "\nLa fecha de inicio es: "+ actividad.getfechaInicio()+"\n";
+    		JOptionPane.showMessageDialog(null,"Solo se puede hacer el reporte de una tarea");
     	}
-    	
-    	JOptionPane.showMessageDialog(null,mensaje);
     }
+
+	private void iconReporteActividadMouseClicked(java.awt.event.MouseEvent evt) {
+
+    		graficarActividad();
+
+    }
+	
+	private void graficarActividad()
+	{
+		Thread t = new Thread(new Runnable() {
+		    @Override
+		    public void run() {
+		    	CategoryChart chart = new CategoryChartBuilder().width(800).height(600).title("Calidad de la planeación").theme(ChartTheme.GGPlot2).build();
+		    	chart.addSeries("Horas de trabajo", Arrays.asList(new String[] { "Juan", "Pedro", "Diana"}), Arrays.asList(new Integer[] { (int)(Math.random()*40+1), (int)(Math.random()*40+1), (int)(Math.random()*40+1)}));
+		    	chart.addSeries("Actividades completadas", Arrays.asList(new String[] { "Juan", "Pedro", "Diana"}), Arrays.asList(new Integer[] { (int)(Math.random()*10+1), (int)(Math.random()*10+1), (int)(Math.random()*10+1)}));
+		    	JFrame a = new SwingWrapper(chart).displayChart();   
+			    
+			    javax.swing.SwingUtilities.invokeLater(
+			    	    ()->a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE)
+			    	);
+		    }
+
+		   });
+		t.start();
+	}
+	
+	private void graficarTarea()
+	{
+		Thread t = new Thread(new Runnable() {
+		    @Override
+		    public void run() {
+		    	CategoryChart chart = new CategoryChartBuilder().width(800).height(600).title("Calidad de la planeación").theme(ChartTheme.GGPlot2).build();
+		    	chart.addSeries("Horas de trabajo", Arrays.asList(new String[] { "Planeado", "Transcurrido"}), Arrays.asList(new Integer[] { (int)(Math.random()*50+1), (int)(Math.random()*50+1)}));
+		    	JFrame a = new SwingWrapper(chart).displayChart();   
+			    
+			    javax.swing.SwingUtilities.invokeLater(
+			    	    ()->a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE)
+			    	);
+		    }
+
+		   });
+		t.start();
+	}
+	
+	private void graficarProyecto()
+	{
+		Thread t = new Thread(new Runnable() {
+		    @Override
+		    public void run() {
+		    	PieChart chart = new PieChartBuilder().width(800).height(600).title("Avance del proyecto").theme(ChartTheme.GGPlot2).build();
+		        // Customize Chart
+		        chart.getStyler().setLegendVisible(false);
+		        chart.getStyler().setPlotContentSize(.7);
+		        chart.getStyler().setStartAngleInDegrees(90);		      
+		        
+		        int numero = (int)(Math.random()*consola.darPaqueteTrabajoRaiz().darPreorden().size()+1);
+		        
+		        // Series
+		        chart.addSeries("Sin completar", numero);
+		        chart.addSeries("Completado", consola.darPaqueteTrabajoRaiz().darPreorden().size()-numero);
+		        // Show it
+		        JFrame a = new SwingWrapper(chart).displayChart();   
+			    
+			    javax.swing.SwingUtilities.invokeLater(
+			    	    ()->a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE)
+			    	);
+		    }
+
+			private void dibujarChart(PieChart chart) 
+			{
+//				List<Nodo> lista = consola.darPaqueteTrabajoRaiz().darPreorden();
+//				int total = lista.size();
+//				double 
+//				for(Nodo nodo: lista)
+//				{
+//					boolean random = new Random().nextBoolean();
+//					chart.addSeries(nodo.darNombre(), random);
+//				}
+			}
+
+		   });
+		t.start();
+	}
 
     private void btnCompletarActividadActionPerformed(ActionEvent evt) {
     	LocalDateTime  diaActividad =  LocalDateTime.now();
