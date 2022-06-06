@@ -665,10 +665,13 @@ public class InterfazAdministrador extends javax.swing.JFrame implements TreeSel
         }
     }
 
-    private void iconCrearProyectoMouseClicked(java.awt.event.MouseEvent evt) {
-        
-        FrameAgregarProyecto frameAgregarProyecto = new FrameAgregarProyecto(consola, this, nodoSeleccionado.darNombre());
-        frameAgregarProyecto.setVisible(true);
+    private void iconCrearProyectoMouseClicked(java.awt.event.MouseEvent evt) 
+    {
+        if(nodoSeleccionado instanceof PaqueteTrabajo)
+        {
+        	FrameAgregarProyecto frameAgregarProyecto = new FrameAgregarProyecto(consola, this, nodoSeleccionado.darNombre());
+            frameAgregarProyecto.setVisible(true);
+        }
     }
 
     private void iconAgregarParticipanteMouseClicked(java.awt.event.MouseEvent evt) {
