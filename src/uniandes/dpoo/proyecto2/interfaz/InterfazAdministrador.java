@@ -672,6 +672,10 @@ public class InterfazAdministrador extends javax.swing.JFrame implements TreeSel
         	FrameAgregarProyecto frameAgregarProyecto = new FrameAgregarProyecto(consola, this, nodoSeleccionado.darNombre());
             frameAgregarProyecto.setVisible(true);
         }
+        else
+        {
+        	JOptionPane.showMessageDialog(null,"No se puede agregar un paquete de trabajo a una tarea");
+        }
     }
 
     private void iconAgregarParticipanteMouseClicked(java.awt.event.MouseEvent evt) {
